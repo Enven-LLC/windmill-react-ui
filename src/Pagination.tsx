@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import Button, { ButtonAsButtonProps } from './Button'
 import { ThemeContext } from './context/ThemeContext'
 
@@ -100,7 +100,9 @@ type Ref = HTMLDivElement
 const Pagination = React.forwardRef<Ref, PaginationProps>(function Pagination(props, ref) {
   const { totalResults, resultsPerPage = 10, label, onChange, ...other } = props
   const [pages, setPages] = useState<(number | string)[]>([])
-  const [activePage, setActivePage] = useState(1)
+//   const [activePage, setActivePage] = useState(1)	
+	const initialActivePageRef = useRef(activePage)
+	const [activePage, setActivePage] = useState(initialActivePageRef.current)
 
   const TOTAL_PAGES = Math.ceil(totalResults / resultsPerPage)
   const FIRST_PAGE = 1
